@@ -2,9 +2,7 @@
   <h1>Track Visualizer</h1>
   <svg viewBox="-60 -50 100 100" preserveAspectRatio="xMidYMid meet">
     <g app-box [box]="box"></g>
-    @for (tracker of tracks; track $index) {
-      <g app-tracker [tracker]="tracker" />
-    }
+    <g app-tracker />
   </svg>
   <div>
     {{ connectionMessage }}

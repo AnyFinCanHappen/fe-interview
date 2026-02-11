@@ -5,7 +5,7 @@ import { BoxComponent } from './components/box/box.component';
 import { Box } from './models/box.model';
 import { TrackframeService } from './services/trackframe.service';
 import { Subscription } from 'rxjs';
-import { TrackframeMessage, Tracker } from './models/trackframe.model';
+import { TrackframeMessage } from './models/trackframe.model';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +19,6 @@ export class AppComponent implements OnInit, OnDestroy {
   wsSubscription: Subscription | null = null;
   connectionMessage: string = '';
 
-  tracks: Tracker[] = [];
   box: Box = {
     p1: { x: -30, y: -10 },
     p2: { x: -10, y: -10 },
@@ -43,7 +42,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.wsSubscription = this.trackframeService.connect().subscribe({
       next: (data: TrackframeMessage) => {
         this.connectionMessage = 'Connected to WebSocket';
-        this.tracks = data.tracks;
+        console.log(data);
       },
       error: () => (this.connectionMessage = 'WebSocket connection error'),
       complete: () => (this.connectionMessage = 'WebSocket connection completed'),

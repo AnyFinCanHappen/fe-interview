@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Tracker } from '../../models/trackframe.model';
 
 @Component({
@@ -9,5 +9,5 @@ import { Tracker } from '../../models/trackframe.model';
   styleUrl: './tracker.component.scss',
 })
 export class TrackerComponent {
-  @Input() tracker: Tracker = { trackedObjectId: '', x: 0, y: 0 };
+  tracker: Tracker = { trackedObjectId: '', x: 0, y: 0 };
 }
