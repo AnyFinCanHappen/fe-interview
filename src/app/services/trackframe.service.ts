@@ -12,22 +12,14 @@ export class TrackframeService {
 
   constructor() {}
 
-  public connect(): Observable<TrackframeMessage> {
+  connect(): Observable<TrackframeMessage> {
     if (!this.socket$ || this.socket$.closed) {
       this.socket$ = webSocket<TrackframeMessage>(this.url);
     }
     return this.socket$.asObservable();
   }
 
-  public sendMessage(msg: any): void {
-    if (this.socket$) {
-      this.socket$.next(msg);
-    } else {
-      console.error('WebSocket is not connected.');
-    }
-  }
-
-  public close(): void {
+  close(): void {
     if (this.socket$) {
       this.socket$.complete();
       this.socket$ = null;

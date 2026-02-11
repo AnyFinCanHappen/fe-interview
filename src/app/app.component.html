@@ -1,21 +1,9 @@
 <div class="container">
   <h1>Track Visualizer</h1>
-  <svg
-    viewBox="-60 -50 100 100"
-    preserveAspectRatio="xMidYMid meet"
-    xmlns:svg="http://www.w3.org/2000/svg"
-  >
+  <svg viewBox="-60 -50 100 100" preserveAspectRatio="xMidYMid meet">
+    <g app-box [box]="box"></g>
     @for (tracker of tracks; track $index) {
-      <svg:g>
-        <svg:circle
-          [attr.cx]="tracker.x"
-          [attr.cy]="tracker.y"
-          r="1"
-          fill="green"
-          stroke="black"
-          stroke-width="0.1"
-        />
-      </svg:g>
+      <g app-tracker [tracker]="tracker" />
     }
   </svg>
   <div>

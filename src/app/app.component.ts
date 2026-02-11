@@ -1,22 +1,31 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { TrackerComponent } from './components/tracker/tracker.component';
+import { BoxComponent } from './components/box/box.component';
+import { Box } from './models/box.model';
 import { TrackframeService } from './services/trackframe.service';
 import { Subscription } from 'rxjs';
-import { TrackframeMessage, Trackframe } from './models/trackframe.model';
+import { TrackframeMessage, Tracker } from './models/trackframe.model';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TrackerComponent, BoxComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit, OnDestroy {
   private trackframeService: TrackframeService = inject(TrackframeService);
-
-  tracks: Trackframe[] = [];
   wsSubscription: Subscription | null = null;
   connectionMessage: string = '';
+
+  tracks: Tracker[] = [];
+  box: Box = {
+    p1: { x: -30, y: -10 },
+    p2: { x: -10, y: -10 },
+    p3: { x: -10, y: 10 },
+    p4: { x: -30, y: 10 },
+  };
 
   ngOnInit(): void {
     this.connectToWebSocket();
