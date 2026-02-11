@@ -63,7 +63,8 @@
               "buildTarget": "fe-interview:build:production"
             },
             "development": {
-              "buildTarget": "fe-interview:build:development"
+              "buildTarget": "fe-interview:build:development",
+              "disableHostCheck": true
             }
           },
           "defaultConfiguration": "development"
@@ -89,5 +90,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
