@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, NgZone } from '@angular/core';
 import { TrackerComponent } from './components/tracker/tracker.component';
 import { BoxComponent } from './components/box/box.component';
 import { Box } from './models/box.model';
@@ -16,6 +16,7 @@ import { TrackframeMessage } from './models/trackframe.model';
 })
 export class AppComponent implements OnInit, OnDestroy {
   private trackframeService: TrackframeService = inject(TrackframeService);
+  private zone: NgZone = inject(NgZone);
   wsSubscription: Subscription | null = null;
   connectionMessage: string = '';
 
@@ -41,8 +42,9 @@ export class AppComponent implements OnInit, OnDestroy {
     this.wsSubscription?.unsubscribe();
     this.wsSubscription = this.trackframeService.connect().subscribe({
       next: (data: TrackframeMessage) => {
-        this.connectionMessage = 'Connected to WebSocket';
-        console.log(data);
+        this.zone.run(() => {
+          this.connectionMessage = 'Connected to WebSocket';
+        });
       },
       error: () => (this.connectionMessage = 'WebSocket connection error'),
       complete: () => (this.connectionMessage = 'WebSocket connection completed'),
